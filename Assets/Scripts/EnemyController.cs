@@ -8,9 +8,9 @@ public class EnemyController : MonoBehaviour
     public int enemyHealth = 1; // Health of the enemy
     public int playerDamage = 1; // Damage dealt to the player on collision
 
-    public void TakeDamage()
+    public void TakeDamage(int damage)
     {
-        enemyHealth--;
+        enemyHealth -= damage;
 
         if (enemyHealth <= 0)
         {

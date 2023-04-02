@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-<<<<<<< HEAD
-using UnityEngine.SceneManagement;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     public CharacterController controller;
+    public GameObject projectilePrefab;
 
     public float speed = 12f;
     public float gravity = -9.81f;
@@ -17,10 +16,14 @@ public class PlayerMovement : MonoBehaviour
     public float dashSpeed = 50f;
     public float dashDuration = 0.2f;
     public float doubleTapTime = 0.2f;
+    public float projectileSpeed = 20f;
+    public float projectileCooldown = 0.5f;
     public GameObject platform;
+    private float lastPlatformHitTime = 5f;
+    private float platformHitCooldown = 0.5f;
     public float interval = 10f;
-
     public Transform groundCheck;
+    public Transform projectileSpawn;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
@@ -28,15 +31,14 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded;
     bool isDashing;
     float lastTapTime;
-    private float lastPlatformHitTime = 0f;
-    private float platformHitCooldown = 0.5f;
+    float lastProjectileTime;
 
-    void Start()
+    private void Start()
     {
-        platform.gameObject.SetActive(true);
+        lastProjectileTime = Time.time - projectileCooldown;
     }
 
-    void Update()
+    private void Update()
     {
         if (!isPaused)
         {
@@ -71,6 +73,12 @@ public class PlayerMovement : MonoBehaviour
                 lastTapTime = Time.time;
             }
 
+            if (Input.GetButtonDown("Fire1") && Time.time - lastProjectileTime > projectileCooldown)
+            {
+                FireProjectile();
+                lastProjectileTime = Time.time;
+            }
+
             velocity.y += gravity * Time.deltaTime;
 
             controller.Move(velocity * Time.deltaTime);
@@ -96,69 +104,49 @@ public class PlayerMovement : MonoBehaviour
         isDashing = false;
     }
 
-    public void TakeDamage(int damage)
+ public void TakeDamage(int damage)
+{
+    if (health <= 0)
     {
-        health -= damage;
+        return;
+    }
+    
+    health -= damage;
 
-        if (health <= 0)
-        {
-            // Handle player death, e.g., restart the level or load a game over scene
-            // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Example: Restart the level
-        }
+    if (health <= 0)
+    {
+        Debug.Log("damage taken");
+        // Handle player death, e.g., restart the level or load a game over scene
+        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Example: Restart the level
+    }
+}
+
+    void FireProjectile()
+    {
+        GameObject projectile = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.identity);
+        projectile.GetComponent<Rigidbody>().velocity = transform.forward * projectileSpeed;
     }
 
-      void OnControllerColliderHit(ControllerColliderHit hit)
+    void OnControllerColliderHit(ControllerColliderHit hit)
+{
+    EnemyController enemy = hit.collider.GetComponentInParent<EnemyController>();
+
+    if (enemy != null && hit.collider.CompareTag("Enemy"))
     {
-        EnemyController enemy = hit.collider.GetComponentInParent<EnemyController>();
-
-        if (enemy != null)
-        {
-            // Check if the player collided with the enemy
-            if (hit.collider.CompareTag("Enemy"))
-            {
-                TakeDamage(enemy.playerDamage);
-            }
-        }
-
-        // Check if the player collided with a platform
-        if (hit.collider.CompareTag("Platform") && hit.normal.y > 0.5f && Time.time - lastPlatformHitTime > platformHitCooldown)
-        {
-            lastPlatformHitTime = Time.time;
-            StartCoroutine(Fade(hit.collider.gameObject));
-        }
+        TakeDamage(enemy.playerDamage);
     }
+
+    if (hit.collider.CompareTag("Platform") && hit.normal.y > 0.5f && Time.time - lastPlatformHitTime > platformHitCooldown)
+    {
+        lastPlatformHitTime = Time.time;
+        StartCoroutine(Fade(hit.collider.gameObject));
+    }
+}
 
     IEnumerator Fade(GameObject platform)
     {
-        platform.gameObject.SetActive(false);
-        yield return new WaitForSeconds(interval);
-        platform.gameObject.SetActive(true);
+        platform.SetActive(false);
+        yield return new WaitForSeconds(20f);
+        platform.SetActive(true);
     }
-}
-
-
-
-=======
-
-public class PlayerMovement : MonoBehaviour
-{
-    public float speed = 5f;
-
-    private Rigidbody rb;
-
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
     }
-
-    void FixedUpdate()
-    {
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-
-        Vector3 movement = new Vector3(horizontal, 0f, vertical) * speed * Time.deltaTime;
-
-        rb.MovePosition(transform.position + movement);
-    }
-}
->>>>>>> 2d9e75c233c3da964fbaf6831a088afc8dee2648
