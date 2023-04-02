@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
+    //This code is making me VIOLENT I am going to drop out of game design I swear
+
     public CharacterController controller;
     public GameObject projectilePrefab;
 
@@ -27,6 +29,10 @@ public class PlayerController : MonoBehaviour
     public Transform projectileSpawn;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+
+    public AudioSource audioSource;
+    public AudioClip jumpSound;
+    public AudioClip projectileSound;
 
     Vector3 velocity;
     bool isGrounded;
@@ -64,6 +70,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+                audioSource.PlayOneShot(jumpSound);
+
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
@@ -79,6 +87,8 @@ public class PlayerController : MonoBehaviour
             {
                 FireProjectile();
                 lastProjectileTime = Time.time;
+                audioSource.PlayOneShot(projectileSound);
+
             }
 
             velocity.y += gravity * Time.deltaTime;
@@ -133,7 +143,7 @@ public class PlayerController : MonoBehaviour
         projectile.GetComponent<Rigidbody>().velocity = transform.forward * projectileSpeed;
     }
 
-  void OnControllerColliderHit(ControllerColliderHit hit)
+ void OnControllerColliderHit(ControllerColliderHit hit)
 {
     EnemyController enemy = hit.collider.GetComponentInParent<EnemyController>();
 
@@ -144,7 +154,10 @@ public class PlayerController : MonoBehaviour
 
     if (hit.collider.CompareTag("Platform") && hit.normal.y > 0.5f && Time.time - lastPlatformHitTime > platformHitCooldown)
     {
-        lastPlatformHitTime = Time.time;
+        if (lastPlatformHitTime == 0f)
+        {
+            lastPlatformHitTime = Time.time;
+        }
         StartCoroutine(Fade(hit.collider.gameObject));
     }
 
@@ -157,10 +170,12 @@ public class PlayerController : MonoBehaviour
 }
 
 
-    IEnumerator Fade(GameObject platform)
-    {
-        platform.SetActive(false);
-        yield return new WaitForSeconds(20f);
-        platform.SetActive(true);
-    }
+IEnumerator Fade(GameObject platform)
+{
+    Debug.Log("Fading platform");
+    platform.SetActive(false);
+    yield return new WaitForSeconds(interval);
+    platform.SetActive(true);
+}
+
  }
