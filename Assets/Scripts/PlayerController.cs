@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public CharacterController controller;
@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public int health = 3;
+    public int maxHealth = 3;
     public bool isPaused = false;
     public float winTime = 90f;
     public float dashSpeed = 50f;
@@ -36,6 +37,7 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         lastProjectileTime = Time.time - projectileCooldown;
+        health = maxHealth;
     }
 
     private void Update()
@@ -108,6 +110,7 @@ public class PlayerController : MonoBehaviour
 {
     if (health <= 0)
     {
+        
         return;
     }
     
@@ -118,7 +121,9 @@ public class PlayerController : MonoBehaviour
         Debug.Log("damage taken");
         // Handle player death, e.g., restart the level or load a game over scene
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Example: Restart the level
+        
     }
+    HealthBar.instance.SetValue(health / (float)maxHealth);
 }
 
     void FireProjectile()
