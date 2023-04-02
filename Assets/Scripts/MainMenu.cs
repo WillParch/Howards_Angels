@@ -16,5 +16,10 @@ public void QuitGame ()
     Debug.Log("Quit!");
     Application.Quit();
 }
+
+    public void returnMainMenu()
+    {
+        SceneManager.LoadScene("Main Menu");
+    }
 }
 
