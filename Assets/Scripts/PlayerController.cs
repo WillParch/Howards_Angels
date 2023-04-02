@@ -118,7 +118,8 @@ public class PlayerController : MonoBehaviour
 
     if (health <= 0)
     {
-        Debug.Log("damage taken");
+        SceneManager.LoadScene("Lose Menu");
+       // Debug.Log("damage taken");
         // Handle player death, e.g., restart the level or load a game over scene
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Example: Restart the level
         
@@ -132,7 +133,7 @@ public class PlayerController : MonoBehaviour
         projectile.GetComponent<Rigidbody>().velocity = transform.forward * projectileSpeed;
     }
 
-    void OnControllerColliderHit(ControllerColliderHit hit)
+  void OnControllerColliderHit(ControllerColliderHit hit)
 {
     EnemyController enemy = hit.collider.GetComponentInParent<EnemyController>();
 
@@ -146,7 +147,15 @@ public class PlayerController : MonoBehaviour
         lastPlatformHitTime = Time.time;
         StartCoroutine(Fade(hit.collider.gameObject));
     }
+
+    if (hit.collider.CompareTag("WinPlatform"))
+    {
+        // Handle the win condition, e.g., load a win menu scene or display a message
+         SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
+        Debug.Log("You win!");
+    }
 }
+
 
     IEnumerator Fade(GameObject platform)
     {
@@ -154,4 +163,4 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(20f);
         platform.SetActive(true);
     }
-    }
+ }

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2600,7 +2600,7 @@ GameObject:
   - component: {fileID: 1257626647}
   m_Layer: 6
   m_Name: Win Trigger for Level 2
-  m_TagString: Untagged
+  m_TagString: WinPlatform
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3817,8 +3817,8 @@ MonoBehaviour:
   speed: 12
   gravity: -9.81
   jumpHeight: 3
-  health: 3
-  maxHealth: 3
+  health: 500
+  maxHealth: 500
   isPaused: 0
   winTime: 90
   dashSpeed: 20
@@ -4622,16 +4622,16 @@ RectTransform:
   m_GameObject: {fileID: 2114237380}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.3847268, y: 0.433705, z: 0.86741}
+  m_LocalScale: {x: 12.955815, y: 0.433705, z: 0.86741}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1414864304}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.41200003, y: 0.74200004}
-  m_AnchorMax: {x: 0.642, y: 0.81000006}
-  m_AnchoredPosition: {x: -2, y: 0.5}
-  m_SizeDelta: {x: -130, y: 65}
+  m_AnchorMin: {x: 0.3571963, y: 0.86200005}
+  m_AnchorMax: {x: 0.7178038, y: 0.95000005}
+  m_AnchoredPosition: {x: -1.5999985, y: 0.6999817}
+  m_SizeDelta: {x: -216, y: 58}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2114237382
 MonoBehaviour:
