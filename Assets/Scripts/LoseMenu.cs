@@ -6,9 +6,15 @@ using UnityEngine.SceneManagement;
 public class LoseMenu : MonoBehaviour
 {
     // Start is called before the first frame update
+    public void Update()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = true;
+    }
+    
     public void PlayGame()
     {
-        SceneManager.LoadScene(6);
+        SceneManager.LoadScene(2);
     }
 
     public void QuitGame()
