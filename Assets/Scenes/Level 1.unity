@@ -910,7 +910,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDamage: 1
-  enemy: {fileID: 0}
+  enemy: {fileID: 861100499}
 --- !u!65 &178444430
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1720,7 +1720,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDamage: 1
-  enemy: {fileID: 0}
+  enemy: {fileID: 999583835}
 --- !u!65 &395476906
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2151,7 +2151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdcaacb2daf655409c9d95f626d89ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathTrigger: {fileID: 0}
+  deathTrigger: {fileID: 2001309353}
   enemyHealth: 1
   playerDamage: 1
 --- !u!54 &598358010
@@ -6136,7 +6136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDamage: 1
-  enemy: {fileID: 0}
+  enemy: {fileID: 635417676}
 --- !u!65 &1459575474
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -6376,7 +6376,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDamage: 1
-  enemy: {fileID: 0}
+  enemy: {fileID: 811424227}
 --- !u!65 &1550628824
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7176,7 +7176,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDamage: 1
-  enemy: {fileID: 0}
+  enemy: {fileID: 2144011388}
 --- !u!65 &1664216462
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8658,7 +8658,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2001309353}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.0005, y: 0.00618, z: 0.0002}
+  m_LocalPosition: {x: 0.0005, y: 0.00683, z: 0.0002}
   m_LocalScale: {x: 0.00598836, y: 0.0014792447, z: 0.00598836}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8678,7 +8678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectileDamage: 1
-  enemy: {fileID: 0}
+  enemy: {fileID: 598358009}
 --- !u!65 &2001309356
 BoxCollider:
   m_ObjectHideFlags: 0
