@@ -137,11 +137,18 @@ public class PlayerController : MonoBehaviour
     HealthBar.instance.SetValue(health / (float)maxHealth);
 }
 
-    void FireProjectile()
-    {
-        GameObject projectile = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.identity);
-        projectile.GetComponent<Rigidbody>().velocity = transform.forward * projectileSpeed;
-    }
+void FireProjectile()
+{
+    Vector3 fireDir = Camera.main.transform.forward;
+
+    GameObject projectile = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.identity);
+    projectile.transform.forward = fireDir;
+    projectile.GetComponent<Rigidbody>().velocity = fireDir * projectileSpeed;
+    lastProjectileTime = Time.time;
+    audioSource.PlayOneShot(projectileSound);
+}
+
+
 
  void OnControllerColliderHit(ControllerColliderHit hit)
 {

@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1854,12 +1854,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645312698}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.02, z: 1.07}
+  m_LocalPosition: {x: 0.02, y: 0.93, z: 1.07}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1576053945}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648407881
 GameObject:
@@ -4498,14 +4498,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1431734419}
-  m_LocalRotation: {x: 0.22695124, y: -0, z: -0, w: 0.97390616}
-  m_LocalPosition: {x: -0.1894042, y: 2.2299984, z: -4.72}
+  m_LocalRotation: {x: 0.41905347, y: -0, z: -0, w: 0.9079616}
+  m_LocalPosition: {x: -0.18940827, y: 7.5, z: -7}
   m_LocalScale: {x: 0.27057743, y: 0.27057743, z: 0.27057743}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1576053945}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 26.235, y: 0, z: 0}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 49.55, y: 0, z: 0}
 --- !u!114 &1431734423
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4518,9 +4518,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b934732e64c25ee42baef863fc5a746e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 1576053945}
+  projectileSpawn: {fileID: 645312699}
   mouseSensitivity: 100
-  playerCamera: {fileID: 1431734422}
-  playerBody: {fileID: 1576053945}
 --- !u!1 &1435437009
 GameObject:
   m_ObjectHideFlags: 0
@@ -5337,13 +5337,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1576053940}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.15783, y: 49.02, z: -5.504}
+  m_LocalPosition: {x: 0.15783, y: 49.02, z: 4.31}
   m_LocalScale: {x: 0.8332793, y: 0.8332793, z: 0.8332793}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 774020159}
-  - {fileID: 1431734422}
   - {fileID: 645312699}
+  - {fileID: 1431734422}
   m_Father: {fileID: 0}
   m_RootOrder: 22
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
