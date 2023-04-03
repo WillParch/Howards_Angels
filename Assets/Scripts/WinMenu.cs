@@ -6,16 +6,9 @@ using UnityEngine.SceneManagement;
 public class WinMenu : MonoBehaviour
 {
     // Start is called before the first frame update
-
-    public void Update()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = true;
-    }
-
     public void PlayGame()
     {
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(5);
     }
 
     public void QuitGame()
@@ -23,6 +16,4 @@ public class WinMenu : MonoBehaviour
         Debug.Log("Quit!");
         Application.Quit();
     }
-
-    
 }
