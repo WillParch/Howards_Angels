@@ -7,9 +7,12 @@ public class PlayerController : MonoBehaviour
     //This code is making me VIOLENT I am going to drop out of game design I swear
 
     public CharacterController controller;
+    public Transform cam;
     public GameObject projectilePrefab;
 
-    public float speed = 12f;
+    public float speed = 6f;
+    public float turnSmoothTime = 0.1f;
+    float turnSmoothVelocity;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public int health = 3;
@@ -48,6 +51,20 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        if (direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+        }
+
         if (!isPaused)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
@@ -57,28 +74,17 @@ public class PlayerController : MonoBehaviour
                 velocity.y = -2f;
             }
 
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-
-            Vector3 move = transform.right * x + transform.forward * z;
-
-            if (!isDashing)
-            {
-                controller.Move(move * speed * Time.deltaTime);
-            }
-
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
                 audioSource.PlayOneShot(jumpSound);
-
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (!isGrounded && Time.time - lastTapTime < doubleTapTime)
                 {
-                    StartCoroutine(Dash(move));
+                    StartCoroutine(Dash(direction));
                 }
                 lastTapTime = Time.time;
             }
@@ -88,7 +94,6 @@ public class PlayerController : MonoBehaviour
                 FireProjectile();
                 lastProjectileTime = Time.time;
                 audioSource.PlayOneShot(projectileSound);
-
             }
 
             velocity.y += gravity * Time.deltaTime;
@@ -101,6 +106,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
 
     IEnumerator Dash(Vector3 direction)
     {
