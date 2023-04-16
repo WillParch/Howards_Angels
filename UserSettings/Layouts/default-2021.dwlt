@@ -19,7 +19,7 @@ MonoBehaviour:
     width: 1536
     height: 772.8
   m_ShowMode: 4
-  m_Title: Scene
+  m_Title: Project
   m_RootView: {fileID: 2}
   m_MinSize: {x: 875, y: 300}
   m_MaxSize: {x: 10000, y: 10000}
@@ -144,7 +144,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 200}
   m_MaxSize: {x: 16192, y: 16192}
   vertical: 1
-  controlID: 94
+  controlID: 50
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_MinSize: {x: 200, y: 100}
   m_MaxSize: {x: 16192, y: 8096}
   vertical: 0
-  controlID: 95
+  controlID: 51
 --- !u!114 &8
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -269,8 +269,8 @@ MonoBehaviour:
     y: 0
     width: 317.59998
     height: 722.8
-  m_MinSize: {x: 275, y: 50}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 276, y: 71}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 18}
   m_Panes:
   - {fileID: 18}
@@ -335,10 +335,10 @@ MonoBehaviour:
     m_SaveData: []
   m_SceneHierarchy:
     m_TreeViewState:
-      scrollPos: {x: 0, y: 385.2}
+      scrollPos: {x: 0, y: 32}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 08f6fffff6f9ffff
+      m_ExpandedIDs: 38fbffff
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -587,9 +587,9 @@ MonoBehaviour:
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 196.37755, y: 646.2353, z: 274.88516}
+    m_Target: {x: 280.54248, y: 587.68176, z: 190.60826}
     speed: 2
-    m_Value: {x: 196.37755, y: 646.2353, z: 274.88516}
+    m_Value: {x: 280.54248, y: 587.68176, z: 190.60826}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -636,13 +636,13 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.07672452, y: -0.921522, z: 0.2972618, w: -0.23822698}
+    m_Target: {x: 0.06065597, y: -0.89616144, z: 0.1294282, w: 0.4203691}
     speed: 2
-    m_Value: {x: -0.07716237, y: -0.9210687, z: 0.29711574, w: -0.2395843}
+    m_Value: {x: 0.06001821, y: -0.8962442, z: 0.12806793, w: 0.4204078}
   m_Size:
-    m_Target: 0.14945021
+    m_Target: 0.093170434
     speed: 2
-    m_Value: 0.14301457
+    m_Value: 0.09307043
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -800,22 +800,22 @@ MonoBehaviour:
     m_SkipHidden: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Scenes
+    - Assets
     m_Globs: []
     m_OriginalText: 
   m_ViewMode: 1
   m_StartGridSize: 64
   m_LastFolders:
-  - Assets/Scenes
+  - Assets
   m_LastFoldersGridSize: -1
   m_LastProjectPath: C:\Users\olivi\Howards Angels Final Project\Howards_Angels
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: b65e0000
-    m_LastClickedID: 24246
-    m_ExpandedIDs: 000000008c5e00008e5e0000905e0000a65e000000ca9a3b
+    m_SelectedIDs: 065d0000
+    m_LastClickedID: 23814
+    m_ExpandedIDs: 00000000e05c0000e25c0000e45c0000065d000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -843,7 +843,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 000000008c5e00008e5e0000905e0000
+    m_ExpandedIDs: 00000000e05c0000e25c0000e45c0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
