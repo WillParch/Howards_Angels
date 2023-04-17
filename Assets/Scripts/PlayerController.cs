@@ -7,9 +7,12 @@ public class PlayerController : MonoBehaviour
     //This code is making me VIOLENT I am going to drop out of game design I swear
 
     public CharacterController controller;
+    public Transform cam;
     public GameObject projectilePrefab;
 
-    public float speed = 12f;
+    public float speed = 6f;
+    public float turnSmoothTime = 0.1f;
+    float turnSmoothVelocity;
     public float gravity = -9.81f;
     public float jumpHeight = 3f;
     public int health = 3;
@@ -29,10 +32,6 @@ public class PlayerController : MonoBehaviour
     public Transform projectileSpawn;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
-    public int keys = 0;
-    public GameObject keyring1;
-    public GameObject keyring2;
-    public GameObject shield;
 
     public AudioSource audioSource;
     public AudioClip jumpSound;
@@ -41,6 +40,7 @@ public class PlayerController : MonoBehaviour
     Vector3 velocity;
     bool isGrounded;
     bool isDashing;
+    private bool canDoubleJump;
     float lastTapTime;
     float lastProjectileTime;
 
@@ -52,7 +52,21 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!isPaused)
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        float vertical = Input.GetAxisRaw("Vertical");
+        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+
+        if (direction.magnitude >= 0.1f)
+        {
+            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+            controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+        }
+
+        if (!isPaused && !isDashing)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -61,28 +75,17 @@ public class PlayerController : MonoBehaviour
                 velocity.y = -2f;
             }
 
-            float x = Input.GetAxis("Horizontal");
-            float z = Input.GetAxis("Vertical");
-
-            Vector3 move = transform.right * x + transform.forward * z;
-
-            if (!isDashing)
-            {
-                controller.Move(move * speed * Time.deltaTime);
-            }
-
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
                 audioSource.PlayOneShot(jumpSound);
-
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 if (!isGrounded && Time.time - lastTapTime < doubleTapTime)
                 {
-                    StartCoroutine(Dash(move));
+                    StartCoroutine(Dash(direction));
                 }
                 lastTapTime = Time.time;
             }
@@ -92,7 +95,6 @@ public class PlayerController : MonoBehaviour
                 FireProjectile();
                 lastProjectileTime = Time.time;
                 audioSource.PlayOneShot(projectileSound);
-
             }
 
             velocity.y += gravity * Time.deltaTime;
@@ -104,11 +106,8 @@ public class PlayerController : MonoBehaviour
                 isPaused = !isPaused;
             }
         }
-        if (keys == 2)
-        {
-            Destroy(shield);
-        }
     }
+
 
     IEnumerator Dash(Vector3 direction)
     {
@@ -145,11 +144,18 @@ public class PlayerController : MonoBehaviour
     HealthBar.instance.SetValue(health / (float)maxHealth);
 }
 
-    void FireProjectile()
-    {
-        GameObject projectile = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.identity);
-        projectile.GetComponent<Rigidbody>().velocity = transform.forward * projectileSpeed;
-    }
+void FireProjectile()
+{
+    Vector3 fireDir = Camera.main.transform.forward;
+
+    GameObject projectile = Instantiate(projectilePrefab, projectileSpawn.position, Quaternion.identity);
+    projectile.transform.forward = fireDir;
+    projectile.GetComponent<Rigidbody>().velocity = fireDir * projectileSpeed;
+    lastProjectileTime = Time.time;
+    audioSource.PlayOneShot(projectileSound);
+}
+
+
 
  void OnControllerColliderHit(ControllerColliderHit hit)
 {
@@ -175,20 +181,7 @@ public class PlayerController : MonoBehaviour
          SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
         Debug.Log("You win!");
     }
-
-    if (hit.collider.CompareTag("Key"))
-    {
-        keys++;
-        Destroy(keyring1);
-    }
-
-     if (hit.collider.CompareTag("Keys"))
-    {
-        keys++;
-        Destroy(keyring2);
-    }
 }
-
 
 
 IEnumerator Fade(GameObject platform)

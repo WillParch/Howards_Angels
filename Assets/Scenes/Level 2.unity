@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4545,7 +4545,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1571338116}
-  m_LocalRotation: {x: 0.09897817, y: 0.000000008560945, z: -8.515279e-10, w: 0.99508965}
+  m_LocalRotation: {x: 0.09897817, y: -0.000000008560947, z: 8.5152807e-10, w: 0.99508965}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5239,8 +5239,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 1665759172}
+  cam: {fileID: 128171483}
   projectilePrefab: {fileID: 4658744060282884348, guid: 8a03225eaa0038a4dad827d1dd164299, type: 3}
   speed: 12
+  turnSmoothTime: 0.1
   gravity: -9.81
   jumpHeight: 3
   health: 100
@@ -5260,10 +5262,6 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 64
-  keys: 0
-  keyring1: {fileID: 1019978536}
-  keyring2: {fileID: 1033856481}
-  shield: {fileID: 389314548}
   audioSource: {fileID: 1665759170}
   jumpSound: {fileID: 8300000, guid: d102c205a5166b94cbe931ad7373acd9, type: 3}
   projectileSound: {fileID: 8300000, guid: 99be7b0717f44d5498b36f3464e31c72, type: 3}
