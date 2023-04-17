@@ -25,8 +25,6 @@ public class PlayerController : MonoBehaviour
     public float projectileSpeed = 20f;
     public float projectileCooldown = 0.5f;
     public GameObject platform;
-    private float lastPlatformHitTime = 5f;
-    private float platformHitCooldown = 0.5f;
     public float interval = 10f;
     public Transform groundCheck;
     public Transform projectileSpawn;
@@ -166,14 +164,6 @@ void FireProjectile()
         TakeDamage(enemy.playerDamage);
     }
 
-    if (hit.collider.CompareTag("Platform") && hit.normal.y > 0.5f && Time.time - lastPlatformHitTime > platformHitCooldown)
-    {
-        if (lastPlatformHitTime == 0f)
-        {
-            lastPlatformHitTime = Time.time;
-        }
-        StartCoroutine(Fade(hit.collider.gameObject));
-    }
 
     if (hit.collider.CompareTag("WinPlatform"))
     {
@@ -181,15 +171,6 @@ void FireProjectile()
          SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
         Debug.Log("You win!");
     }
-}
-
-
-IEnumerator Fade(GameObject platform)
-{
-    Debug.Log("Fading platform");
-    platform.SetActive(false);
-    yield return new WaitForSeconds(interval);
-    platform.SetActive(true);
 }
 
  }
