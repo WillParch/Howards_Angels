@@ -30,6 +30,10 @@ public class PlayerController : MonoBehaviour
     public Transform projectileSpawn;
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
+    public int keys = 0;
+    public GameObject shield;
+    public GameObject keyring1;
+    public GameObject keyring2;
 
     public AudioSource audioSource;
     public AudioClip jumpSound;
@@ -104,6 +108,10 @@ public class PlayerController : MonoBehaviour
                 isPaused = !isPaused;
             }
         }
+        if (keys == 2)
+        {
+            Destroy(shield);
+        }
     }
 
 
@@ -170,6 +178,16 @@ void FireProjectile()
         // Handle the win condition, e.g., load a win menu scene or display a message
          SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
         Debug.Log("You win!");
+    }
+    if (hit.collider.CompareTag("Key"))
+    {
+        keys++;
+        Destroy(keyring1);
+    }
+    if (hit.collider.CompareTag("Keys"))
+    {
+        keys++;
+        Destroy(keyring2);
     }
 }
 
