@@ -115,19 +115,23 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    IEnumerator Dash(Vector3 direction)
+   IEnumerator Dash(Vector3 direction)
+{
+    isDashing = true;
+    float startTime = Time.time;
+
+    // Get the camera's forward direction, ignoring the y-axis
+    Vector3 cameraForward = new Vector3(cam.forward.x, 0f, cam.forward.z).normalized;
+
+    while (Time.time - startTime < dashDuration)
     {
-        isDashing = true;
-        float startTime = Time.time;
-
-        while (Time.time - startTime < dashDuration)
-        {
-            controller.Move(direction * dashSpeed * Time.deltaTime);
-            yield return null;
-        }
-
-        isDashing = false;
+        controller.Move(cameraForward * dashSpeed * Time.deltaTime);
+        yield return null;
     }
+
+    isDashing = false;
+}
+
 
  public void TakeDamage(int damage)
 {
@@ -178,6 +182,21 @@ void FireProjectile()
         // Handle the win condition, e.g., load a win menu scene or display a message
          SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
         Debug.Log("You win!");
+    }
+      if (hit.collider.CompareTag("Level1"))
+    {
+        // Handle the win condition, e.g., load a win menu scene or display a message
+         SceneManager.LoadScene("Level 1"); // Example: Load a win menu scene
+    }
+      if (hit.collider.CompareTag("Level2"))
+    {
+        // Handle the win condition, e.g., load a win menu scene or display a message
+         SceneManager.LoadScene("Level 2"); // Example: Load a win menu scene
+    }
+     if (hit.collider.CompareTag("Level3"))
+    {
+        // Handle the win condition, e.g., load a win menu scene or display a message
+         SceneManager.LoadScene("Level 3"); // Example: Load a win menu scene
     }
     if (hit.collider.CompareTag("Key"))
     {
