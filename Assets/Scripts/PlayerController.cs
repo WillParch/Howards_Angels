@@ -67,6 +67,7 @@ public class PlayerController : MonoBehaviour
             Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
             controller.Move(moveDirection.normalized * speed * Time.deltaTime);
         }
+        
 
         if (!isPaused && !isDashing)
         {
@@ -103,7 +104,7 @@ public class PlayerController : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime);
 
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (Input.GetKeyDown(KeyCode.P))
             {
                 isPaused = !isPaused;
             }
@@ -146,6 +147,8 @@ public class PlayerController : MonoBehaviour
     if (health <= 0)
     {
         SceneManager.LoadScene("Lose Menu");
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
        // Debug.Log("damage taken");
         // Handle player death, e.g., restart the level or load a game over scene
         // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Example: Restart the level
