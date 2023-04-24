@@ -183,7 +183,9 @@ void FireProjectile()
     if (hit.collider.CompareTag("WinPlatform"))
     {
         // Handle the win condition, e.g., load a win menu scene or display a message
-         SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
+        SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         Debug.Log("You win!");
     }
       if (hit.collider.CompareTag("Level1"))
