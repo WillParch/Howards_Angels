@@ -34,6 +34,9 @@ public class PlayerController : MonoBehaviour
     public GameObject shield;
     public GameObject keyring1;
     public GameObject keyring2;
+    public GameObject level1;
+    public GameObject level2;
+    public GameObject level3;
 
     public AudioSource audioSource;
     public AudioClip jumpSound;
@@ -146,7 +149,7 @@ public class PlayerController : MonoBehaviour
 
     if (health <= 0)
     {
-        SceneManager.LoadScene("Lose Menu");
+        SceneManager.LoadScene("Level 1");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
        // Debug.Log("damage taken");
@@ -181,6 +184,22 @@ void FireProjectile()
 
 
     if (hit.collider.CompareTag("WinPlatform"))
+    {
+        // Handle the win condition, e.g., load a win menu scene or display a message
+        SceneManager.LoadScene("Hub Level"); // Example: Load a win menu scene
+        Cursor.visible = true;
+        Debug.Log("You win!");
+        level1.SetActive(false);
+    }
+    if (hit.collider.CompareTag("WinPlatform2"))
+    {
+        // Handle the win condition, e.g., load a win menu scene or display a message
+        SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Debug.Log("You win!");
+    }
+    if (hit.collider.CompareTag("WinPlatform3"))
     {
         // Handle the win condition, e.g., load a win menu scene or display a message
         SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
