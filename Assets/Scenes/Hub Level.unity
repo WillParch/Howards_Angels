@@ -815,9 +815,9 @@ MonoBehaviour:
   shield: {fileID: 0}
   keyring1: {fileID: 0}
   keyring2: {fileID: 0}
-  level1: {fileID: 2033806542}
-  level2: {fileID: 442117167}
-  level3: {fileID: 989732541}
+  level1Trigger: {fileID: 0}
+  level1GameObject: {fileID: 0}
+  level2GameObject: {fileID: 0}
   audioSource: {fileID: 159301871}
   jumpSound: {fileID: 8300000, guid: d102c205a5166b94cbe931ad7373acd9, type: 3}
   projectileSound: {fileID: 8300000, guid: 99be7b0717f44d5498b36f3464e31c72, type: 3}
@@ -4402,7 +4402,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.117014244, y: -0.00000003417636, z: 0.000000004026784, w: 0.99313027}
+  m_LocalRotation: {x: 0.117014244, y: 0.00000003417636, z: -0.000000004026784, w: 0.99313027}
   m_LocalPosition: {x: -0.5, y: 6.76, z: -20.52}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7477,7 +7477,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1752119433}
-  m_LocalRotation: {x: 0.11701424, y: -0.00000001708818, z: 0.000000002013392, w: 0.99313027}
+  m_LocalRotation: {x: 0.11701424, y: 0.000000017088176, z: -0.0000000020133915, w: 0.99313027}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8563,6 +8563,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.0021063518, y: 0.02354383, z: 0.015230194}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2033806548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2033806542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f440d6706289264eb222caa50bef693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2055239868
 GameObject:
   m_ObjectHideFlags: 0

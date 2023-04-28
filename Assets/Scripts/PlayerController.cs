@@ -189,23 +189,6 @@ void FireProjectile()
         SceneManager.LoadScene("Hub Level"); // Example: Load a win menu scene
         Cursor.visible = true;
         Debug.Log("You win!");
-        level1.SetActive(false);
-    }
-    if (hit.collider.CompareTag("WinPlatform2"))
-    {
-        // Handle the win condition, e.g., load a win menu scene or display a message
-        SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        Debug.Log("You win!");
-    }
-    if (hit.collider.CompareTag("WinPlatform3"))
-    {
-        // Handle the win condition, e.g., load a win menu scene or display a message
-        SceneManager.LoadScene("Win Menu"); // Example: Load a win menu scene
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-        Debug.Log("You win!");
     }
       if (hit.collider.CompareTag("Level1"))
     {
