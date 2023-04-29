@@ -101,7 +101,7 @@ public class PlayerController : MonoBehaviour
         animator.SetInteger("walk",1);
     }
 
-    if (Input.GetKeyDown(KeyCode.E) && Time.time > lastActivatedTime + cooldownTime)
+    if (Input.GetButtonDown("Fire2") && Time.time > lastActivatedTime + cooldownTime)
             {
                 Debug.Log("Pressed E!");
                     spaceWalk.SetActive(true);
@@ -137,7 +137,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
             if (!isGrounded && !hasDoubleDashed && Time.time - lastTapTime < doubleTapTime)
             {
@@ -160,7 +160,7 @@ public class PlayerController : MonoBehaviour
 
             controller.Move(velocity * Time.deltaTime);
 
-            if (Input.GetKeyDown(KeyCode.P))
+            if (Input.GetButtonDown("Pause"))
             {
                 isPaused = !isPaused;
             }
