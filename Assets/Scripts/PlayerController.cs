@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour
     public Transform cam;
     public GameObject projectilePrefab;
 
+     Animator animator;
+
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
     float turnSmoothVelocity;
@@ -34,9 +36,10 @@ public class PlayerController : MonoBehaviour
     public GameObject shield;
     public GameObject keyring1;
     public GameObject keyring2;
-    public GameObject level1;
-    public GameObject level2;
-    public GameObject level3;
+
+    public int ScoreOne = 0;
+    public int ScoreTwo = 0;
+    public int ScoreThree = 0;
 
     public AudioSource audioSource;
     public AudioClip jumpSound;
@@ -49,58 +52,108 @@ public class PlayerController : MonoBehaviour
     float lastTapTime;
     float lastProjectileTime;
 
+    public GameObject spaceWalk;
+    private float lastActivatedTime;
+    private const float cooldownTime = 10f;
+
+    private bool hasDoubleDashed;
+
+
     private void Start()
     {
         lastProjectileTime = Time.time - projectileCooldown;
         health = maxHealth;
+
+       animator=this.GetComponent<Animator>();
+
+       spaceWalk.SetActive(false);
+
+       if (PlayerPrefs.HasKey("ScoreThree"))
+        {
+        ScoreThree = PlayerPrefs.GetInt("ScoreThree");
+        }
+        if (PlayerPrefs.HasKey("ScoreTwo"))
+        {
+        ScoreTwo = PlayerPrefs.GetInt("ScoreTwo");
+        }
+        if (PlayerPrefs.HasKey("ScoreOne"))
+        {
+        ScoreOne = PlayerPrefs.GetInt("ScoreOne");
+        }
     }
 
     private void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical = Input.GetAxisRaw("Vertical");
-        Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
+    
+    float horizontal = Input.GetAxisRaw("Horizontal");
+    float vertical = Input.GetAxisRaw("Vertical");
+    Vector3 direction = new Vector3(horizontal, 0f, vertical).normalized;
 
-        if (direction.magnitude >= 0.1f)
-        {
-            float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
-            float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
-            transform.rotation = Quaternion.Euler(0f, angle, 0f).normalized;
+    if (direction.magnitude >= 0.1f)
+    {
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg + cam.eulerAngles.y;
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, turnSmoothTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f).normalized;
 
-            Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-            controller.Move(moveDirection.normalized * speed * Time.deltaTime);
-        }
-        
+        Vector3 moveDirection = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        controller.Move(moveDirection.normalized * speed * Time.deltaTime);
+
+        animator.SetInteger("walk",1);
+    }
+
+    if (Input.GetKeyDown(KeyCode.E) && Time.time > lastActivatedTime + cooldownTime)
+            {
+                Debug.Log("Pressed E!");
+                    spaceWalk.SetActive(true);
+                    lastActivatedTime = Time.time;
+                     StartCoroutine(DeactivateAfterDelay(3f));
+
+            }
+
 
         if (!isPaused && !isDashing)
         {
             isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-            if (isGrounded && velocity.y < 0)
-            {
-                velocity.y = -2f;
-            }
+             if (isGrounded && velocity.y < 0)
+        {
+            velocity.y = -2f;
+            canDoubleJump = true;
+            hasDoubleDashed = false;
+        }
 
-            if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump"))
+        {
+            if (isGrounded)
             {
                 velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
                 audioSource.PlayOneShot(jumpSound);
             }
-
-            if (Input.GetKeyDown(KeyCode.Space))
+            else if (canDoubleJump)
             {
-                if (!isGrounded && Time.time - lastTapTime < doubleTapTime)
-                {
-                    StartCoroutine(Dash(direction));
-                }
-                lastTapTime = Time.time;
+                velocity.y = Mathf.Sqrt(jumpHeight * -2 * gravity);
+                audioSource.PlayOneShot(jumpSound);
+                canDoubleJump = false;
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (!isGrounded && !hasDoubleDashed && Time.time - lastTapTime < doubleTapTime)
+            {
+                StartCoroutine(Dash(direction));
+                hasDoubleDashed = true;
+            }
+            lastTapTime = Time.time;
+        }
 
             if (Input.GetButtonDown("Fire1") && Time.time - lastProjectileTime > projectileCooldown)
             {
                 FireProjectile();
                 lastProjectileTime = Time.time;
                 audioSource.PlayOneShot(projectileSound);
+                animator.SetInteger("projectile",1);
+
             }
 
             velocity.y += gravity * Time.deltaTime;
@@ -115,6 +168,13 @@ public class PlayerController : MonoBehaviour
         if (keys == 2)
         {
             Destroy(shield);
+        }
+
+        if (ScoreOne >= 1 && ScoreTwo >= 1 && ScoreThree >= 1)
+        {
+            SceneManager.LoadScene("Win Menu");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
         }
     }
 
@@ -136,6 +196,11 @@ public class PlayerController : MonoBehaviour
     isDashing = false;
 }
 
+IEnumerator DeactivateAfterDelay(float delay)
+{
+    yield return new WaitForSeconds(delay);
+    spaceWalk.SetActive(false);
+}
 
  public void TakeDamage(int damage)
 {
@@ -149,7 +214,7 @@ public class PlayerController : MonoBehaviour
 
     if (health <= 0)
     {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene("Hub Level");
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
        // Debug.Log("damage taken");
@@ -185,10 +250,35 @@ void FireProjectile()
 
     if (hit.collider.CompareTag("WinPlatform"))
     {
+        ScoreOne++;
         // Handle the win condition, e.g., load a win menu scene or display a message
         SceneManager.LoadScene("Hub Level"); // Example: Load a win menu scene
-        Cursor.visible = true;
+       PlayerPrefs.SetInt("ScoreOne", ScoreOne);
         Debug.Log("You win!");
+         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+    
+    if (hit.collider.CompareTag("WinPlatform2"))
+    {
+         ScoreTwo++;
+        // Handle the win condition, e.g., load a win menu scene or display a message
+        SceneManager.LoadScene("Hub Level"); // Example: Load a win menu scene
+       PlayerPrefs.SetInt("ScoreTwo", ScoreOne);
+        Debug.Log("You win!");
+         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+     if (hit.collider.CompareTag("WinPlatform3"))
+    {
+        ScoreThree++;
+        // Handle the win condition, e.g., load a win menu scene or display a message
+        SceneManager.LoadScene("Hub Level"); // Example: Load a win menu scene
+       PlayerPrefs.SetInt("ScoreThree", ScoreOne);
+        Debug.Log("You win!");
+         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        
     }
       if (hit.collider.CompareTag("Level1"))
     {
@@ -215,6 +305,7 @@ void FireProjectile()
         keys++;
         Destroy(keyring2);
     }
+    
 }
 
  }
