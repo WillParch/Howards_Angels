@@ -214,12 +214,12 @@ IEnumerator DeactivateAfterDelay(float delay)
 
     if (health <= 0)
     {
-        SceneManager.LoadScene("Hub Level");
+        
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
        // Debug.Log("damage taken");
         // Handle player death, e.g., restart the level or load a game over scene
-        // SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Example: Restart the level
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); // Example: Restart the level
         
     }
     HealthBar.instance.SetValue(health / (float)maxHealth);
