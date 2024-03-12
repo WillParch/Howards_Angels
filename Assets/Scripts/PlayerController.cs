@@ -9,8 +9,9 @@ public class PlayerController : MonoBehaviour
     public CharacterController controller;
     public Transform cam;
     public GameObject projectilePrefab;
+    public Transform player;
 
-     Animator animator;
+    Animator animator;
 
     public float speed = 6f;
     public float turnSmoothTime = 0.1f;
@@ -66,7 +67,7 @@ public class PlayerController : MonoBehaviour
 
        animator=this.GetComponent<Animator>();
 
-       spaceWalk.SetActive(false);
+       
 
        if (PlayerPrefs.HasKey("ScoreThree"))
         {
@@ -104,11 +105,12 @@ public class PlayerController : MonoBehaviour
     if (Input.GetButtonDown("Fire2") && Time.time > lastActivatedTime + cooldownTime)
             {
                 Debug.Log("Pressed E!");
-                    spaceWalk.SetActive(true);
-                    lastActivatedTime = Time.time;
+            
+            lastActivatedTime = Time.time;
                      StartCoroutine(DeactivateAfterDelay(3f));
+            
 
-            }
+        }
 
 
         if (!isPaused && !isDashing)
@@ -198,9 +200,12 @@ public class PlayerController : MonoBehaviour
 
 IEnumerator DeactivateAfterDelay(float delay)
 {
-    yield return new WaitForSeconds(delay);
-    spaceWalk.SetActive(false);
-}
+        Vector3 playerPosition = player.position;
+        Vector3 spawnPosition = playerPosition - new Vector3(0f, 1f, 0f);
+        GameObject spaceWalkInstance = Instantiate(spaceWalk, spawnPosition, Quaternion.identity, transform);
+        yield return new WaitForSeconds(delay);
+        Destroy(spaceWalkInstance);
+    }
 
  public void TakeDamage(int damage)
 {
